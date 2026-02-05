@@ -17,6 +17,16 @@
         <button type="submit">Kontakt hinzufügen</button>
       </form>
 
+      <!-- NEUES SUCHFELD -->
+      <div class="suche">
+        <input
+          type="text"
+          id="suche"
+          placeholder="Kontakte durchsuchen..."
+          onkeyup="kontakteAnzeigen(this.value)"
+        />
+      </div>
+
       <div id="kontakt-liste">
         <!-- Kontakte werden hier angezeigt -->
       </div>

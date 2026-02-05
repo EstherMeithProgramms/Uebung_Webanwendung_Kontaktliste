@@ -35,23 +35,42 @@ function formularLeeren() {
   telefonInput.value = "";
 }
 
-// Funktion zur Anzeige aller Kontakte
-function kontakteAnzeigen() {
+// NEUE FUNKTION: Kontakte filtern
+function kontakteFiltern(suchbegriff) {
+  if (!suchbegriff) {
+    return kontakte;
+  }
+
+  return kontakte.filter(
+    (kontakt) =>
+      kontakt.name.toLowerCase().includes(suchbegriff.toLowerCase()) ||
+      kontakt.email.toLowerCase().includes(suchbegriff.toLowerCase()),
+  );
+}
+
+// Funktion zur Anzeige aller Kontakte (erweitert für Filter)
+function kontakteAnzeigen(suchbegriff = "") {
   kontaktListe.innerHTML = "";
 
-  kontakte.forEach(function (kontakt) {
+  // Filter anwenden falls Suchbegriff vorhanden
+  const gefilterteKontakte = kontakteFiltern(suchbegriff);
+
+  gefilterteKontakte.forEach(function (kontakt) {
     const kontaktDiv = document.createElement("div");
     kontaktDiv.className = "kontakt-item";
     kontaktDiv.innerHTML = `
-          <h3>${kontakt.name}</h3>
-          <p>E-Mail: ${kontakt.email}</p>
-          <p>Telefon: ${kontakt.telefon}</p>
-          <button onclick="kontaktLoeschen(${kontakt.id})">Löschen</button>
-
+           <h3>${kontakt.name}</h3>
+           <p>E-Mail: ${kontakt.email}</p>
+           <p>Telefon: ${kontakt.telefon}</p>
+           <button onclick="kontaktLoeschen(${kontakt.id})">Löschen</button>
         `;
-
     kontaktListe.appendChild(kontaktDiv);
   });
+
+  // Anzeige wenn keine Kontakte gefunden
+  if (gefilterteKontakte.length === 0) {
+    kontaktListe.innerHTML = "<p>Keine Kontakte gefunden.</p>";
+  }
 }
 
 // Funktion zum Löschen eines Kontakts
