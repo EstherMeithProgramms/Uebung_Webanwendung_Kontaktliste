@@ -8,7 +8,7 @@ const emailInput = document.getElementById("email");
 const telefonInput = document.getElementById("telefon");
 const kontaktListe = document.getElementById("kontakt-liste");
 
-// Event Listener für das Formular
+// Event Listener fuer das Formular
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   kontaktHinzufuegen();
